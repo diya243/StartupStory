@@ -24,7 +24,7 @@
 
   <section class="hero">
     <h1>Understand any public company's growth<br>in plain English.</h1>
-    <p class="hero-sub">Type a company name. We'll pull its real, recent financials and explain what they actually mean — no jargon.</p>
+    <p class="hero-sub">Type a company name. We'll pull its real, recent financials and explain what they actually mean — no jargon, no setup required.</p>
 
     <form id="searchForm" class="search-form" autocomplete="off">
       <input id="companyInput" type="text" placeholder="e.g. Tesla, the coffee company, Nvidia…" required />
@@ -79,8 +79,8 @@
 
 <div id="settingsModal" class="modal hidden">
   <div class="modal-card">
-    <h2>API Keys</h2>
-    <p class="modal-sub">Stored only in your browser (localStorage). Never sent anywhere except directly to these providers.</p>
+    <h2>API Keys (optional)</h2>
+    <p class="modal-sub">Search works out of the box on a shared demo backend with limited daily quota. Add your own free keys here to skip the shared limits entirely — stored only in your browser, never sent anywhere except directly to these providers.</p>
 
     <label>Alpha Vantage API key <a href="https://www.alphavantage.co/support/#api-key" target="_blank" rel="noopener">(get a free one)</a></label>
     <input id="avKeyInput" type="text" placeholder="Alpha Vantage key" />
@@ -96,6 +96,7 @@
 </div>
 
 <script src="js/config.js"></script>
+<script src="js/tickerAliases.js"></script>
 <script src="js/financeApi.js"></script>
 <script src="js/claudeApi.js"></script>
 <script src="js/render.js"></script>

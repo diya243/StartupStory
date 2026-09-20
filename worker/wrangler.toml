@@ -1,0 +1,22 @@
+name = "startupstory-api"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Create with: wrangler kv namespace create CACHE
+# Then paste the returned id below.
+[[kv_namespaces]]
+binding = "CACHE"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Secrets (set with `wrangler secret put NAME`, never written to this file):
+#   ALPHA_VANTAGE_KEY
+#   ANTHROPIC_API_KEY
+
+[vars]
+# Comma-separated list of origins allowed to call this API. Update after
+# you know your GitHub Pages URL, e.g. "https://diya243.github.io"
+ALLOWED_ORIGIN = "*"
+# Daily caps protecting your own API quotas/spend from public abuse.
+DAILY_AV_BUDGET = "20"
+DAILY_STORY_BUDGET = "80"
+PER_IP_DAILY_LIMIT = "15"

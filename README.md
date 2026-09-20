@@ -4,8 +4,6 @@ Type the name of any public company and get a plain-English breakdown of how it'
 
 **Live demo:** _add your GitHub Pages URL here after deploying_
 
-![Startup Story screenshot](docs/screenshot.png)
-
 ## What it does
 
 1. You type a company name (formal or informal — "tesla", "the coffee company").
@@ -19,22 +17,28 @@ No investment advice is ever given — the tool describes trends, it doesn't tel
 
 ## Architecture
 
-This is a **fully static site** — plain HTML/CSS/JS, no build step, no backend/server. It's designed to deploy directly to GitHub Pages.
+The **frontend** is a fully static site — plain HTML/CSS/JS, no build step — deployed to GitHub Pages.
 
-That's possible because of a **bring-your-own-key** pattern:
+There are two ways it can get live data, and it picks automatically:
 
-- **Financial numbers** come from [Alpha Vantage](https://www.alphavantage.co/) (free tier, CORS-enabled), called directly from the browser and computed deterministically in JavaScript. The LLM never touches these numbers — it only receives them as already-verified input.
-- **The narrative, market-leader identification, and Reddit sentiment** come from a single call to the **Anthropic (Claude) API**, made directly from the browser using Claude's built-in `web_search` tool, so the sentiment/leader lookup is genuinely live-searched rather than memorized.
-- Both API keys are entered once in the app's Settings panel and stored only in `localStorage` in the visitor's own browser. They are never sent anywhere except directly to their respective provider's API.
+1. **Shared demo backend (default, zero setup for visitors)** — a small [Cloudflare Worker](worker/) holds the owner's Alpha Vantage + Anthropic keys server-side, with caching and daily rate limits so a public link can't drain the free-tier key or run up the owner's Anthropic bill. See [`worker/README.md`](worker/README.md) to deploy it.
+2. **Bring-your-own-key** — if a visitor adds their own Alpha Vantage + Anthropic keys in Settings, the app calls both APIs directly from their browser instead, unlimited by the shared demo's quota. Keys are stored only in that visitor's `localStorage` and never sent anywhere but the providers' own APIs.
+
+Either way:
+
+- **Financial numbers** (revenue, growth, margins, market cap, price history) are computed deterministically in plain JavaScript from [Alpha Vantage](https://www.alphavantage.co/) data. The LLM never touches these figures — it only ever receives them as already-verified input.
+- **The narrative, market-leader identification, and Reddit sentiment** come from a single Anthropic (Claude) call using Claude's built-in `web_search` tool, so the sentiment/leader lookup is genuinely live-searched rather than memorized.
 
 ```
-index.html          page structure
-style.css           design system (dark theme, cards, charts)
-js/config.js         localStorage key management
-js/financeApi.js      Alpha Vantage calls + deterministic metric computation
-js/claudeApi.js       Anthropic API call (narrative + leader + sentiment)
-js/render.js           all DOM rendering
-js/main.js              orchestration / event wiring
+index.html              page structure
+style.css               design system (dark theme, cards, charts)
+js/config.js             API key storage + worker URL config
+js/tickerAliases.js       local name -> ticker shortcuts (saves API calls)
+js/financeApi.js          Alpha Vantage data + deterministic metric computation
+js/claudeApi.js           Anthropic call (narrative + leader + sentiment)
+js/render.js               all DOM rendering
+js/main.js                  orchestration / event wiring
+worker/                       optional shared backend (see worker/README.md)
 ```
 
 ## Running it locally
@@ -47,12 +51,14 @@ python -m http.server 8765
 
 Then open `http://localhost:8765` in a browser. (Opening `index.html` directly via `file://` won't work — the app's `fetch()` calls to Alpha Vantage/Anthropic need a real HTTP origin.)
 
-## Getting API keys (both free to start)
+## Getting your own API keys (optional)
 
-- **Alpha Vantage**: [alphavantage.co/support/#api-key](https://www.alphavantage.co/support/#api-key) — instant, free, no credit card. Free tier is rate-limited (a handful of requests per minute, ~25/day on the current free plan), which is enough for demo use.
+Only needed if you want to deploy the shared backend (see [`worker/README.md`](worker/README.md)) or bypass its daily quota as a visitor.
+
+- **Alpha Vantage**: [alphavantage.co/support/#api-key](https://www.alphavantage.co/support/#api-key) — instant, free, no credit card. Free tier is rate-limited (a handful of requests per minute, ~25/day on the current free plan).
 - **Anthropic**: [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) — requires an Anthropic account with billing set up; the `web_search` tool and API usage are billed per Anthropic's pricing.
 
-Open the app, click **Settings**, paste both keys in. They stay in your browser.
+To use your own keys as a visitor: open the app, click **Settings**, paste both keys in. They stay in your browser.
 
 ## Deploying to GitHub Pages
 

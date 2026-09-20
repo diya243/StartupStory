@@ -146,7 +146,7 @@
     const query = input.value.trim();
     if (!query) return;
 
-    if (!Config.getAlphaVantageKey() || !Config.getClaudeKey()) {
+    if (!Config.canRun()) {
       Render.setStatus("Add your Alpha Vantage and Anthropic API keys in Settings first.", true);
       openSettings();
       return;
@@ -160,11 +160,7 @@
       const resolved = await FinanceApi.resolveSymbol(query);
       Render.setStatus(`Found ${resolved.name} (${resolved.symbol}). Fetching financials…`);
 
-      const [overview, income, monthlyPrices] = await Promise.all([
-        FinanceApi.getOverview(resolved.symbol),
-        FinanceApi.getIncomeStatement(resolved.symbol),
-        FinanceApi.getMonthlyPrices(resolved.symbol).catch(() => null),
-      ]);
+      const { overview, income, monthlyPrices } = await FinanceApi.getFinancials(resolved.symbol);
 
       const { metrics, gaps } = FinanceApi.buildMetrics(resolved.symbol, overview, income, monthlyPrices);
       const latestQ = (income.quarterlyReports || [])[0];

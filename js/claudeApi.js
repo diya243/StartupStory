@@ -71,10 +71,8 @@ Now produce the JSON response described in your instructions.`;
     return JSON.parse(cleaned.slice(start, end + 1));
   }
 
-  async function generateStoryAndSentiment(context) {
+  async function generateDirect(context) {
     const key = Config.getClaudeKey();
-    if (!key) throw new Error("Missing Anthropic API key. Open Settings and add one.");
-
     const res = await fetch(ENDPOINT, {
       method: "POST",
       headers: {
@@ -106,8 +104,25 @@ Now produce the JSON response described in your instructions.`;
     }
 
     const message = await res.json();
-    const text = extractText(message);
-    return parseJson(text);
+    return parseJson(extractText(message));
+  }
+
+  async function generateViaWorker(context) {
+    if (!Config.hasWorker()) {
+      throw new Error("No API keys set and no shared demo backend configured. Open Settings and add your own free keys.");
+    }
+    const res = await fetch(Config.workerUrl("/api/story"), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(context),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Demo backend request failed (HTTP ${res.status}).`);
+    return data;
+  }
+
+  function generateStoryAndSentiment(context) {
+    return Config.hasOwnKeys() ? generateDirect(context) : generateViaWorker(context);
   }
 
   return { generateStoryAndSentiment };

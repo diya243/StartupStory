@@ -1,13 +1,16 @@
 // All financial numbers come from Alpha Vantage (https://www.alphavantage.co/).
 // Every value here is fetched live and computed deterministically — never guessed.
+//
+// Two paths depending on whether the visitor supplied their own keys:
+//  - own keys present  -> call Alpha Vantage directly from the browser
+//  - no keys           -> call the shared backend worker (see /worker), which
+//                          holds the owner's key and rate-limits/caches
 const FinanceApi = (() => {
-  const BASE = "https://www.alphavantage.co/query";
+  const AV_BASE = "https://www.alphavantage.co/query";
 
-  async function avFetch(params) {
+  async function avFetchDirect(params) {
     const key = Config.getAlphaVantageKey();
-    if (!key) throw new Error("Missing Alpha Vantage API key. Open Settings and add one (it's free).");
-
-    const url = new URL(BASE);
+    const url = new URL(AV_BASE);
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
     url.searchParams.set("apikey", key);
 
@@ -21,8 +24,25 @@ const FinanceApi = (() => {
     return data;
   }
 
+  async function workerFetch(path) {
+    if (!Config.hasWorker()) {
+      throw new Error("No API keys set and no shared demo backend configured. Open Settings and add your own free keys.");
+    }
+    const res = await fetch(Config.workerUrl(path));
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Demo backend request failed (HTTP ${res.status}).`);
+    return data;
+  }
+
   async function resolveSymbol(query) {
-    const data = await avFetch({ function: "SYMBOL_SEARCH", keywords: query });
+    const alias = TickerAliases.lookup(query);
+    if (alias) return { symbol: alias.symbol, name: alias.name, region: "United States" };
+
+    const useOwnKeys = Config.hasOwnKeys();
+    const data = useOwnKeys
+      ? await avFetchDirect({ function: "SYMBOL_SEARCH", keywords: query })
+      : await workerFetch(`/api/resolve?q=${encodeURIComponent(query)}`);
+
     const matches = data.bestMatches || [];
     const equities = matches.filter((m) => m["3. type"] === "Equity");
     const best = equities[0] || matches[0];
@@ -30,29 +50,46 @@ const FinanceApi = (() => {
     return { symbol: best["1. symbol"], name: best["2. name"], region: best["4. region"] };
   }
 
-  async function getOverview(symbol) {
-    const data = await avFetch({ function: "OVERVIEW", symbol });
-    if (!data || !data.Symbol) throw new Error(`Alpha Vantage has no company overview for "${symbol}".`);
-    return data;
-  }
-
-  async function getIncomeStatement(symbol) {
-    const data = await avFetch({ function: "INCOME_STATEMENT", symbol });
-    if (!data || (!data.quarterlyReports && !data.annualReports)) {
-      throw new Error(`No income statement disclosed for "${symbol}".`);
+  // Returns { overview, income, monthlyPrices } regardless of which path was used.
+  async function getFinancials(symbol) {
+    if (Config.hasOwnKeys()) {
+      const [overview, income, monthlyRaw] = await Promise.all([
+        avFetchDirect({ function: "OVERVIEW", symbol }),
+        avFetchDirect({ function: "INCOME_STATEMENT", symbol }),
+        avFetchDirect({ function: "TIME_SERIES_MONTHLY", symbol }).catch(() => null),
+      ]);
+      if (!overview || !overview.Symbol) throw new Error(`Alpha Vantage has no company overview for "${symbol}".`);
+      if (!income || (!income.quarterlyReports && !income.annualReports)) {
+        throw new Error(`No income statement disclosed for "${symbol}".`);
+      }
+      return { overview, income, monthlyPrices: normalizeMonthly(monthlyRaw) };
     }
+
+    const data = await workerFetch(`/api/financials?symbol=${encodeURIComponent(symbol)}`);
+    if (!data.overview || !data.overview.Symbol) throw new Error(`No company overview found for "${symbol}".`);
     return data;
   }
 
-  async function getMonthlyPrices(symbol) {
-    const data = await avFetch({ function: "TIME_SERIES_MONTHLY", symbol });
-    const series = data["Monthly Time Series"];
+  function normalizeMonthly(data) {
+    const series = data && data["Monthly Time Series"];
     if (!series) return null;
-    const points = Object.entries(series)
+    return Object.entries(series)
       .slice(0, 13)
       .map(([date, v]) => ({ date, close: parseFloat(v["4. close"]) }))
       .reverse();
-    return points;
+  }
+
+  // Kept for the comparison-table lookup, which always needs a second
+  // company's overview regardless of which data path was used for the first.
+  async function getOverview(symbol) {
+    if (Config.hasOwnKeys()) {
+      const data = await avFetchDirect({ function: "OVERVIEW", symbol });
+      if (!data || !data.Symbol) throw new Error(`Alpha Vantage has no company overview for "${symbol}".`);
+      return data;
+    }
+    const data = await workerFetch(`/api/financials?symbol=${encodeURIComponent(symbol)}`);
+    if (!data.overview || !data.overview.Symbol) throw new Error(`No company overview found for "${symbol}".`);
+    return data.overview;
   }
 
   function num(v) {
@@ -79,7 +116,9 @@ const FinanceApi = (() => {
   function buildMetrics(symbol, overview, income, monthlyPrices) {
     const metrics = [];
     const gaps = [];
-    const sourceUrl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}`;
+    // A human-readable citation link (the raw Alpha Vantage endpoint requires
+    // an API key to load, so it isn't useful to click for a reader).
+    const sourceUrl = `https://stockanalysis.com/stocks/${symbol}/`;
 
     const qReports = income.quarterlyReports || [];
     const latestQ = qReports[0];
@@ -184,7 +223,7 @@ const FinanceApi = (() => {
           ? `The stock is worth ${fmtPct(Math.abs(change))} more than it was a year ago — investors have grown more optimistic (or at least less pessimistic) about the company's future.`
           : `The stock is worth ${fmtPct(Math.abs(change))} less than it was a year ago — investors have grown more cautious, which can reflect the business, the industry, or the broader market.`,
         source: "Alpha Vantage (monthly closing prices)",
-        source_url: `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${symbol}`,
+        source_url: `https://stockanalysis.com/stocks/${symbol}/history/`,
       });
     } else {
       gaps.push("12-month stock price history wasn't available.");
@@ -205,5 +244,5 @@ const FinanceApi = (() => {
     return { metrics, gaps };
   }
 
-  return { resolveSymbol, getOverview, getIncomeStatement, getMonthlyPrices, buildMetrics, fmtMoney, fmtPct, num };
+  return { resolveSymbol, getFinancials, getOverview, buildMetrics, fmtMoney, fmtPct, num };
 })();
