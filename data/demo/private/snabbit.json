@@ -1,0 +1,67 @@
+{
+  "name": "Snabbit",
+  "category": "On-demand home services, India",
+  "asOfPeriod": "April 2026 (its latest funding round)",
+  "capturedOn": "2026-09-20",
+  "metrics": [
+    {
+      "metric": "Latest funding round",
+      "value": "$56M raised",
+      "period": "April 2026",
+      "plain_english": "This is the size of the most recent investment round the company announced — new cash from investors in exchange for equity, not revenue the business earned from customers.",
+      "source": "Times of India (Apr 29, 2026)",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/snabbit-raises-56-million-company-valued-at-390-million/articleshow/130593308.cms"
+    },
+    {
+      "metric": "Valuation (April 2026 round)",
+      "value": "$390M",
+      "period": "April 2026",
+      "plain_english": "This is what investors say the whole company is worth, based on the price they paid for their new shares. It's not audited and can move quickly for a private startup, up or down.",
+      "source": "Times of India (Apr 29, 2026)",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/snabbit-raises-56-million-company-valued-at-390-million/articleshow/130593308.cms"
+    },
+    {
+      "metric": "Total funding raised to date",
+      "value": "$112M",
+      "period": "cumulative, as of Aug 2026",
+      "plain_english": "This is the running total of every round the company has raised since it was founded in 2024 — a sign of how much investors have bet on it, not of how much it has earned.",
+      "source": "Tracxn company profile (Aug 11, 2026)",
+      "source_url": "https://tracxn.com/d/companies/snabbit/__nUmtxwTL2BQ1vTsMIDdHMG0k0WLym2z-HxY1dx8qXUI"
+    },
+    {
+      "metric": "Founded",
+      "value": "2024, Bengaluru, by Aayush Agarwal",
+      "period": "—",
+      "plain_english": "A two-year-old company at the time of this snapshot — very young even by startup standards, which is part of why its valuation has moved so fast.",
+      "source": "Tracxn company profile (Aug 11, 2026)",
+      "source_url": "https://tracxn.com/d/companies/snabbit/__nUmtxwTL2BQ1vTsMIDdHMG0k0WLym2z-HxY1dx8qXUI"
+    },
+    {
+      "metric": "Notable investors",
+      "value": "Nexus Venture Partners, Lightspeed Venture Partners, Bertelsmann, Susquehanna Venture Capital, Mirae Asset Venture Investments",
+      "period": "cumulative",
+      "plain_english": "These are the venture capital firms that have put money into the company across its funding rounds.",
+      "source": "Tracxn company profile (Aug 11, 2026)",
+      "source_url": "https://tracxn.com/d/companies/snabbit/__nUmtxwTL2BQ1vTsMIDdHMG0k0WLym2z-HxY1dx8qXUI"
+    }
+  ],
+  "dataGaps": [
+    "Snabbit hasn't publicly disclosed revenue, which is common for a fast-scaling consumer startup still focused on growth over disclosure.",
+    "No independently audited financial statements are publicly available, only funding and valuation figures reported to journalists."
+  ],
+  "narrative_stages": [
+    { "key": "origin", "label": "Origin", "period": "2024", "headline": "Founded to bring instant, on-demand home help to Indian cities", "detail": "Snabbit launched in 2024 in Bengaluru, founded by Aayush Agarwal, betting that India's largely informal home-services market — cooking, cleaning, household help — could be turned into an instant, app-based service the way ride-hailing did for taxis." },
+    { "key": "struggle", "label": "Struggle", "period": "2024–2025", "headline": "Competing in a famously hard, low-margin market", "detail": "On-demand home services is a notoriously difficult category — thin margins, high worker turnover, and trust concerns from customers letting strangers into their homes — that has challenged similar startups elsewhere. Snabbit's early period was about proving the model could scale reliably in that environment." },
+    { "key": "inflection", "label": "Inflection", "period": "Early 2026", "headline": "Investors raced to fund the model, valuation nearly tripled in months", "detail": "By March 2026 reports said Snabbit was in talks for a fresh round near a $450M valuation; weeks later, in April 2026, it closed $56M at a $390M valuation, backed by new and existing investors betting India's home-services market — estimated around $60 billion — is finally ready to go from informal to on-demand." },
+    { "key": "today", "label": "Today", "period": "2026", "headline": "$112M raised to date, revenue still undisclosed", "detail": "Snabbit has now raised $112M in total funding, but hasn't publicly disclosed revenue — common for a fast-scaling consumer startup still in a land-grab phase. Its bet is that being first to reliably scale trust and quality in India's home-services market is worth more right now than proving profitability." }
+  ],
+  "reddit_pulse": {
+    "summary_note": "Illustrative example of common viewpoints in startup/venture discussions — curated for this demo (not a live scrape), and opinion, not fact. As a very young private startup, Snabbit has limited public discussion to draw from.",
+    "thought_bubbles": [
+      { "sentiment": "skeptical", "take": "A recurring critique of on-demand home-services startups generally is that the unit economics — worker pay, insurance, quality control — are much harder to make work at scale than food delivery or ride-hailing, and some want to see real revenue numbers before buying the growth story." },
+      { "sentiment": "bullish", "take": "Others point to how quickly Snabbit's valuation moved — from talk of $450M to a closed $390M round within weeks — as a sign investor demand for the category is real, not just speculative froth." },
+      { "sentiment": "neutral", "take": "A commonly cited swing factor is trust and safety, since the entire business depends on customers feeling comfortable letting a stranger into their home; how the company handles background checks and incidents publicly could matter as much as growth metrics." },
+      { "sentiment": "insider", "take": "People familiar with India's gig-work sector often flag worker retention and fair pay as the operational challenge that will determine whether a service like this can stay reliable while scaling fast." }
+    ]
+  }
+}

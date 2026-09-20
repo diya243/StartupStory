@@ -1,0 +1,76 @@
+{
+  "name": "FamApp (formerly FamPay)",
+  "category": "Fintech — teen banking & payments, India",
+  "asOfPeriod": "FY25 (ended Mar 2025)",
+  "capturedOn": "2026-09-20",
+  "metrics": [
+    {
+      "metric": "Revenue (FY25)",
+      "value": "₹90–100 Cr (~$11M)",
+      "period": "FY25 (Apr 2024 – Mar 2025)",
+      "plain_english": "This is what the company told the press it earned in sales over its most recent fiscal year — self-reported to a journalist, not an audited public filing the way a listed company's would be.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    },
+    {
+      "metric": "Revenue growth (FY24 → FY25)",
+      "value": "~3–4x (self-reported)",
+      "period": "FY24 vs FY25",
+      "plain_english": "Revenue roughly tripled to quadrupled year-over-year based on the figures the company shared with press (₹25 Cr → ₹90–100 Cr) — a very steep jump worth treating as a company-reported claim, not an independently verified figure.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    },
+    {
+      "metric": "Profitability (FY25)",
+      "value": "Profitable — ₹10–12 Cr profit before tax",
+      "period": "FY25",
+      "plain_english": "The company says it turned profitable this year, a reversal from losses the year before — a milestone it chose to share publicly, though it hasn't published full audited accounts.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    },
+    {
+      "metric": "Total funding raised to date",
+      "value": "$42.7M",
+      "period": "since founding",
+      "plain_english": "This is the total amount of investor money the company has raised across every funding round — it's fuel for growth, not revenue the business earned from customers.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    },
+    {
+      "metric": "Latest funding activity",
+      "value": "In talks for $15M more (secondary sale)",
+      "period": "reported Jun 2025",
+      "plain_english": "This new round is reported to be mostly a \"secondary\" sale — meaning the cash would mainly buy out an existing co-founder's shares, not fund new growth directly.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    },
+    {
+      "metric": "Notable investors",
+      "value": "Elevation Capital, Y Combinator, Peak XV Partners, plus angels including Kunal Shah and Amrish Rau",
+      "period": "cumulative",
+      "plain_english": "These are the venture capital firms and individuals who have put money into the company in exchange for equity.",
+      "source": "Business Headline, citing Entrackr (Jun 16, 2025)",
+      "source_url": "https://businessheadline.in/famapp-turns-profitable-with-inr-90-100-cr-revenue-in-fy25/"
+    }
+  ],
+  "dataGaps": [
+    "No current valuation has been recently disclosed — a $570M figure from 2021 circulates online but is too old to treat as current.",
+    "No market capitalization exists because the company isn't listed on any stock exchange.",
+    "No independently audited financial statements are publicly available, only figures reported to journalists."
+  ],
+  "narrative_stages": [
+    { "key": "origin", "label": "Origin", "period": "2019", "headline": "Built to give teens a bank-free way to pay", "detail": "FamPay (now called FamApp) launched in 2019 to solve a specific problem: Indian teenagers couldn't get a normal bank account or debit card, so FamPay built a prepaid card and app parents could set up for their kids, with spending controls built in." },
+    { "key": "struggle", "label": "Struggle", "period": "2020–2024", "headline": "Years of losses funding growth before turning profitable", "detail": "Like many consumer fintech startups, FamPay spent its early years prioritizing user growth over profit, posting losses while building out its product line — including in FY24, when it reported ₹25 Cr in revenue alongside continued losses." },
+    { "key": "inflection", "label": "Inflection", "period": "FY25", "headline": "Turned profitable for the first time", "detail": "In the fiscal year ending March 2025, the company says it turned profitable — posting ₹10–12 Cr in profit before tax — helped by newer paid features like a premium subscription, ATM withdrawal fees, and a new UPI product for foreign travelers called Namaspay." },
+    { "key": "today", "label": "Today", "period": "2025–2026", "headline": "Revenue jumped sharply, now raising again to let a co-founder exit", "detail": "FY25 revenue came in around ₹90–100 Cr, up sharply from ₹25 Cr the year before, according to figures reported to press. The company is now reportedly in talks to raise $15M, primarily to let co-founder Kush Taneja sell his stake to existing investors led by Elevation Capital." }
+  ],
+  "reddit_pulse": {
+    "summary_note": "Illustrative example of common viewpoints in startup/fintech discussions — curated for this demo (not a live scrape), and opinion, not fact. As a niche Indian fintech, FamApp has limited English-language public discussion to draw from.",
+    "thought_bubbles": [
+      { "sentiment": "skeptical", "take": "Consumer fintech investors have generally grown warier of neobank-style startups since 2022, and some observers read a co-founder's exit during a fundraise as a caution signal worth watching, even framed as a routine secondary sale." },
+      { "sentiment": "bullish", "take": "Turning profitable in a single year while revenue jumped several-fold is read by some as proof the newer premium features — subscriptions, KYC, cross-border payments — found real product-market fit rather than just user growth." },
+      { "sentiment": "neutral", "take": "A common observation is that FamApp operates in a fairly narrow niche — payments for Indian teenagers — and its next growth phase likely depends on expanding into adjacent products rather than just growing within that original niche." },
+      { "sentiment": "insider", "take": "People close to India's fintech scene note that regulatory attention on financial products marketed to minors has increased industry-wide, which could shape how aggressively any teen-focused app can market certain features going forward." }
+    ]
+  }
+}

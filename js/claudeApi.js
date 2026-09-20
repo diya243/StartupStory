@@ -15,10 +15,12 @@ invent, restate incorrectly, or add any additional numeric financial figures of 
 
 Do three things:
 
-1. NARRATIVE: Write a 4-8 short-paragraph chronological story of the company's arc (origin, a struggle or
-pivot if publicly known, an inflection point, and where it stands today tying back to the given numbers).
-Flowing prose, no bullet lists, no jargon without an immediate plain-English definition. Never give
-investment advice (no buy/sell/hold language) — describe trends only.
+1. STORY STAGES: Break the company's arc into exactly 4 stages: origin, struggle (a pivot or hard period,
+if publicly known), inflection (the moment growth or perception clearly changed), and today (tying back
+to the given numbers). For each stage give a short headline (under 12 words) and a 2-4 sentence detail —
+this will be shown as a mind-map/timeline a reader clicks through, not a wall of prose, so keep each part
+tight. No jargon without an immediate plain-English definition. Never give investment advice (no
+buy/sell/hold language) — describe trends only.
 
 2. MARKET LEADER: Use your web_search tool to identify the current leading public company in the same
 industry/category. If the given company already IS the clear leader, instead identify the #2 player in
@@ -33,7 +35,12 @@ check, not verified fact, and your summary_note must say so plainly.
 Respond with ONLY a single raw JSON object (no markdown code fences, no commentary before or after) in
 exactly this shape:
 {
-  "narrative": "string, markdown paragraphs separated by blank lines",
+  "narrative_stages": [
+    { "key": "origin", "label": "Origin", "period": "string, e.g. a year or year range", "headline": "string", "detail": "string" },
+    { "key": "struggle", "label": "Struggle", "period": "string", "headline": "string", "detail": "string" },
+    { "key": "inflection", "label": "Inflection", "period": "string", "headline": "string", "detail": "string" },
+    { "key": "today", "label": "Today", "period": "string", "headline": "string", "detail": "string" }
+  ],
   "market_leader": { "name": "string", "ticker": "string or null if unlisted", "is_queried_company_leader": boolean },
   "reddit_pulse": {
     "summary_note": "string reminding the reader this is opinion, not fact",

@@ -22,6 +22,16 @@ const Render = (() => {
     el.classList.remove("hidden");
   }
 
+  function privateBanner(text) {
+    const el = document.getElementById("privateBanner");
+    if (!text) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.textContent = text;
+    el.classList.remove("hidden");
+  }
+
   function companyHeader({ name, ticker, period, assumptionNote }) {
     document.getElementById("companyName").textContent = name;
     document.getElementById("companyTicker").textContent = ticker;
@@ -39,8 +49,8 @@ const Render = (() => {
     const grid = document.getElementById("numbersGrid");
     grid.innerHTML = list
       .map(
-        (m) => `
-      <div class="metric-card">
+        (m, i) => `
+      <div class="metric-card" style="animation-delay: ${i * 0.05}s">
         <div class="metric-name">${escapeHtml(m.metric)}</div>
         <div class="metric-value">${m.value !== null && m.value !== undefined ? escapeHtml(String(m.value)) : "—"}</div>
         <div class="metric-period">${escapeHtml(m.period || "")}</div>
@@ -107,22 +117,57 @@ const Render = (() => {
     };
   }
 
-  function narrative(text) {
-    const el = document.getElementById("narrative");
-    const paragraphs = text
-      .split(/\n\s*\n/)
-      .filter(Boolean)
-      .map((p) => `<p>${escapeHtml(p.trim())}</p>`)
+  // Renders the company's arc as a clickable vertical mind-map / timeline
+  // instead of a wall of prose — one node per stage (origin, struggle,
+  // inflection, today), collapsed to a headline until clicked.
+  function storyMap(stages) {
+    const el = document.getElementById("storyMap");
+    el.innerHTML = stages
+      .map(
+        (s, i) => `
+      <div class="story-node" data-index="${i}">
+        <div class="node-rail">
+          <div class="node-dot">${i + 1}</div>
+          <div class="node-line"></div>
+        </div>
+        <div class="node-body">
+          <div class="node-period">${escapeHtml(s.period || "")}</div>
+          <div class="node-headline">${escapeHtml(s.headline)}</div>
+          <div class="node-toggle">${escapeHtml(s.label || "")} — click to expand</div>
+          <div class="node-detail">${escapeHtml(s.detail)}</div>
+        </div>
+      </div>`
+      )
       .join("");
-    el.innerHTML = paragraphs || `<p>${escapeHtml(text)}</p>`;
+
+    el.querySelectorAll(".story-node").forEach((node) => {
+      node.addEventListener("click", () => node.classList.toggle("open"));
+    });
+
+    // Open the first node by default so the section doesn't look empty/inert.
+    const first = el.querySelector(".story-node");
+    if (first) first.classList.add("open");
   }
 
-  function narrativeLoading() {
-    document.getElementById("narrative").innerHTML = `<div class="skeleton" style="height:120px"></div>`;
+  function storyMapLoading() {
+    document.getElementById("storyMap").innerHTML = `<div class="skeleton" style="height:200px"></div>`;
   }
 
-  function narrativeError(msg) {
-    document.getElementById("narrative").innerHTML = `<p style="color:var(--bad)">Couldn't generate the narrative: ${escapeHtml(msg)}</p>`;
+  function storyMapError(msg) {
+    document.getElementById("storyMap").innerHTML = `<p style="color:var(--bad)">Couldn't generate the story: ${escapeHtml(msg)}</p>`;
+  }
+
+  function setChartsVisible(visible) {
+    document.getElementById("chartsGrid").classList.toggle("hidden", !visible);
+  }
+
+  function comparisonUnavailable(text) {
+    document.getElementById("comparison").innerHTML = `<p style="color:var(--text-dim)">${escapeHtml(text)}</p>`;
+  }
+
+  function setNavPillEnabled(target, enabled) {
+    const pill = document.querySelector(`.nav-pill[data-target="${target}"]`);
+    if (pill) pill.classList.toggle("disabled", !enabled);
   }
 
   function comparisonLoading() {
@@ -136,13 +181,13 @@ const Render = (() => {
   function comparison({ isLeader, leaderName, companyName, rows }) {
     const el = document.getElementById("comparison");
     const leaderNote = isLeader
-      ? `<div class="leader-note">There's no real rival at this scale right now for ${escapeHtml(companyName)} — here's the gap to the #2 player, ${escapeHtml(leaderName)}.</div>`
-      : `<div class="leader-note">Compared against the category leader: ${escapeHtml(leaderName)}.</div>`;
+      ? `<div class="leader-note">There's no real rival at this scale right now for ${escapeHtml(companyName)} — here's the gap to the #2 player.</div>`
+      : `<div class="leader-note">Compared against the category leader.</div>`;
 
     const rowsHtml = rows
       .map(
-        (r) => `
-      <tr>
+        (r, i) => `
+      <tr style="animation: cardIn 0.35s ease backwards; animation-delay: ${i * 0.06}s">
         <td>${escapeHtml(r.metric)}</td>
         <td>${escapeHtml(r.this_company)}</td>
         <td>${escapeHtml(r.comparison_company)}</td>
@@ -152,6 +197,11 @@ const Render = (() => {
       .join("");
 
     el.innerHTML = `
+      <div class="vs-header">
+        <span class="vs-badge">${escapeHtml(companyName)}</span>
+        <span class="vs-divider">VS</span>
+        <span class="vs-badge">${escapeHtml(leaderName)}</span>
+      </div>
       ${leaderNote}
       <table>
         <thead><tr><th>Metric</th><th>${escapeHtml(companyName)}</th><th>${escapeHtml(leaderName)}</th></tr></thead>
@@ -171,8 +221,8 @@ const Render = (() => {
     const el = document.getElementById("redditPulse");
     el.innerHTML = thought_bubbles
       .map(
-        (b) => `
-      <div class="bubble bubble-${escapeAttr(b.sentiment)}">
+        (b, i) => `
+      <div class="bubble bubble-${escapeAttr(b.sentiment)}" style="animation-delay: ${i * 0.08}s">
         <span class="bubble-tag">${escapeHtml(b.sentiment)}</span>
         <div>${escapeHtml(b.take)}</div>
       </div>`
@@ -204,16 +254,20 @@ const Render = (() => {
     setStatus,
     showResults,
     demoBanner,
+    privateBanner,
     companyHeader,
     metrics,
     revenueTrend,
     priceTrend,
-    narrative,
-    narrativeLoading,
-    narrativeError,
+    storyMap,
+    storyMapLoading,
+    storyMapError,
     comparisonLoading,
     comparisonError,
+    comparisonUnavailable,
     comparison,
+    setChartsVisible,
+    setNavPillEnabled,
     redditLoading,
     redditError,
     redditPulse,

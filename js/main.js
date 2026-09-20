@@ -95,7 +95,7 @@
   }
 
   async function runNarrativeAndComparison(context) {
-    Render.narrativeLoading();
+    Render.storyMapLoading();
     Render.redditLoading();
     Render.comparisonLoading();
 
@@ -103,13 +103,17 @@
     try {
       story = await ClaudeApi.generateStoryAndSentiment(context);
     } catch (err) {
-      Render.narrativeError(err.message);
+      Render.storyMapError(err.message);
       Render.redditError(err.message);
       Render.comparisonError(err.message);
       return;
     }
 
-    Render.narrative(story.narrative || "No narrative was returned.");
+    if (Array.isArray(story.narrative_stages) && story.narrative_stages.length) {
+      Render.storyMap(story.narrative_stages);
+    } else {
+      Render.storyMapError("No story was returned.");
+    }
 
     if (story.reddit_pulse && Array.isArray(story.reddit_pulse.thought_bubbles) && story.reddit_pulse.thought_bubbles.length) {
       Render.redditPulse(story.reddit_pulse);
@@ -155,6 +159,9 @@
     searchBtn.disabled = true;
     document.getElementById("results").classList.add("hidden");
     Render.demoBanner(null);
+    Render.privateBanner(null);
+    Render.setChartsVisible(true);
+    Render.setNavPillEnabled("sec-comparison", true);
     Render.setStatus(`Looking up "${query}"…`);
 
     try {
@@ -180,9 +187,12 @@
 
       Render.metrics(metrics);
       Render.dataGaps(gaps);
+      // Charts must be created after the results section is visible --
+      // Chart.js sizes its canvas from the parent's layout box at creation
+      // time, and a hidden (display:none) parent gives it zero size forever.
+      Render.showResults();
       if (income.quarterlyReports?.length) Render.revenueTrend(income.quarterlyReports);
       Render.priceTrend(monthlyPrices);
-      Render.showResults();
       Render.setStatus("");
 
       runNarrativeAndComparison({
@@ -204,7 +214,7 @@
   // Demo mode: fully static, pre-fetched real data for a few companies.
   // Zero network calls beyond loading the JSON file itself — no keys, no
   // worker, no rate limits, guaranteed to work for anyone who opens the link.
-  document.querySelectorAll(".demo-chip").forEach((btn) => {
+  document.querySelectorAll(".demo-chip[data-demo]").forEach((btn) => {
     btn.addEventListener("click", () => runDemo(btn.dataset.demo));
   });
 
@@ -228,6 +238,9 @@
       const latestQ = (data.income.quarterlyReports || [])[0];
       const asOfPeriod = latestQ ? latestQ.fiscalDateEnding : "unknown";
 
+      Render.privateBanner(null);
+      Render.setChartsVisible(true);
+      Render.setNavPillEnabled("sec-comparison", true);
       Render.demoBanner(`Demo · real data captured ${data.capturedOn}, not live. Search any other company above for the real-time version.`);
       Render.companyHeader({
         name: data.overview.Name,
@@ -238,12 +251,12 @@
 
       Render.metrics(metrics);
       Render.dataGaps(gaps);
+      Render.showResults();
       if (data.income.quarterlyReports?.length) Render.revenueTrend(data.income.quarterlyReports);
       Render.priceTrend(data.monthlyPrices);
-      Render.showResults();
       Render.setStatus("");
 
-      Render.narrative(data.narrative);
+      Render.storyMap(data.narrative_stages);
       Render.redditPulse(data.reddit_pulse);
 
       const rows = buildComparisonRows(data.overview.Name, data.leader.name, data.overview, data.leaderOverview);
@@ -254,9 +267,78 @@
         rows,
       });
 
-      window.scrollTo({ top: document.getElementById("results").offsetTop - 20, behavior: "smooth" });
+      scrollToResults();
     } catch (err) {
       Render.setStatus(err.message, true);
     }
   }
+
+  // Private-company demo mode: no market cap, no stock chart, no market-leader
+  // comparison (none of that applies without public shares) -- just metric
+  // cards built directly from press-reported figures, each individually cited,
+  // behind a persistent "not exchange-listed" banner.
+  document.querySelectorAll(".private-chip[data-private-demo]").forEach((btn) => {
+    btn.addEventListener("click", () => runPrivateDemo(btn.dataset.privateDemo));
+  });
+
+  async function runPrivateDemo(key) {
+    document.getElementById("results").classList.add("hidden");
+    Render.setStatus(`Loading private-company snapshot for ${key}…`);
+
+    try {
+      const res = await fetch(`data/demo/private/${key}.json`);
+      if (!res.ok) throw new Error("Couldn't load demo data.");
+      const data = await res.json();
+
+      Render.demoBanner(null);
+      Render.setChartsVisible(false);
+      Render.setNavPillEnabled("sec-comparison", false);
+      Render.privateBanner(
+        `Private company — not exchange-listed, so there are no audited public filings. Every figure below is self-reported or press-reported (see the citation on each card), captured ${data.capturedOn}.`
+      );
+      Render.companyHeader({
+        name: data.name,
+        ticker: `Private · ${data.category || "Unlisted"}`,
+        period: data.asOfPeriod || "",
+        assumptionNote: null,
+      });
+
+      Render.metrics(data.metrics);
+      Render.dataGaps(data.dataGaps || []);
+      Render.comparisonUnavailable("Market-leader comparison isn't meaningful here — there's no public market cap or filings for a private company to compare against a listed leader.");
+      Render.storyMap(data.narrative_stages);
+      Render.redditPulse(data.reddit_pulse);
+      Render.showResults();
+      Render.setStatus("");
+
+      scrollToResults();
+    } catch (err) {
+      Render.setStatus(err.message, true);
+    }
+  }
+
+  function scrollToResults() {
+    window.scrollTo({ top: document.getElementById("results").offsetTop - 20, behavior: "smooth" });
+  }
+
+  // Sticky in-page nav: smooth-scroll on click, highlight the section in view.
+  const navPills = document.querySelectorAll(".nav-pill");
+  navPills.forEach((pill) => {
+    pill.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.getElementById(pill.dataset.target);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navPills.forEach((p) => p.classList.toggle("active", p.dataset.target === entry.target.id));
+      });
+    },
+    { rootMargin: "-40% 0px -50% 0px" }
+  );
+  document.querySelectorAll(".result-section").forEach((sec) => sectionObserver.observe(sec));
 })();
