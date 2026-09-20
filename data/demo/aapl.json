@@ -1,0 +1,60 @@
+{
+  "resolved": { "symbol": "AAPL", "name": "Apple Inc.", "region": "United States" },
+  "capturedOn": "2026-09-18",
+  "overview": {
+    "Symbol": "AAPL",
+    "Name": "Apple Inc.",
+    "Exchange": "NASDAQ",
+    "Sector": "Technology",
+    "Industry": "Consumer Electronics",
+    "MarketCapitalization": "4910000000000",
+    "RevenueTTM": "466820000000",
+    "ProfitMargin": "0.2762",
+    "QuarterlyRevenueGrowthYOY": "0.1636",
+    "DividendYield": "0.0032"
+  },
+  "income": {
+    "quarterlyReports": [
+      { "fiscalDateEnding": "2026-06-27", "totalRevenue": "109417000000", "netIncome": "29789000000", "grossProfit": "54770000000" },
+      { "fiscalDateEnding": "2026-03-28", "totalRevenue": "111184000000", "netIncome": "29578000000", "grossProfit": "54781000000" },
+      { "fiscalDateEnding": "2025-12-27", "totalRevenue": "143756000000", "netIncome": "42097000000", "grossProfit": "69231000000" },
+      { "fiscalDateEnding": "2025-09-27", "totalRevenue": "102466000000", "netIncome": "27466000000", "grossProfit": "48341000000" },
+      { "fiscalDateEnding": "2025-06-28", "totalRevenue": "94036000000", "netIncome": "23434000000", "grossProfit": "43718000000" },
+      { "fiscalDateEnding": "2025-03-29", "totalRevenue": "95359000000", "netIncome": "24780000000", "grossProfit": "44867000000" },
+      { "fiscalDateEnding": "2024-12-28", "totalRevenue": "124300000000", "netIncome": "36330000000", "grossProfit": "58275000000" },
+      { "fiscalDateEnding": "2024-09-28", "totalRevenue": "94930000000", "netIncome": "14736000000", "grossProfit": "43879000000" }
+    ]
+  },
+  "monthlyPrices": [
+    { "date": "Sep 2025", "close": 254.63 },
+    { "date": "Oct 2025", "close": 270.37 },
+    { "date": "Nov 2025", "close": 278.85 },
+    { "date": "Dec 2025", "close": 271.86 },
+    { "date": "Jan 2026", "close": 259.48 },
+    { "date": "Feb 2026", "close": 264.18 },
+    { "date": "Mar 2026", "close": 253.79 },
+    { "date": "Apr 2026", "close": 271.35 },
+    { "date": "May 2026", "close": 312.06 },
+    { "date": "Jun 2026", "close": 289.36 },
+    { "date": "Jul 2026", "close": 308.91 },
+    { "date": "Aug 2026", "close": 316.85 },
+    { "date": "Sep 2026", "close": 336.13 }
+  ],
+  "leader": { "name": "Microsoft Corporation", "ticker": "MSFT", "is_queried_company_leader": true },
+  "leaderOverview": {
+    "MarketCapitalization": "3670000000000",
+    "RevenueTTM": "331840000000",
+    "ProfitMargin": "0.4030",
+    "QuarterlyRevenueGrowthYOY": "0.178"
+  },
+  "narrative": "Apple started in a garage in 1976, building computers for hobbyists at a time when almost nobody thought ordinary people would want one at home. It went on to help invent the personal computer industry, then reinvented itself twice more with the iPod and, in 2007, the iPhone.\n\nIt wasn't a straight line. By the mid-1990s Apple was months from running out of cash, its product lineup a confusing mess. Steve Jobs's return in 1997 forced brutal focus — killing most of the product line down to a handful of things Apple could make great — and set up everything that followed.\n\nThe iPhone was the real inflection point. It turned Apple into the most profitable consumer electronics company in history, and over the following decade the company layered a second growth engine on top of hardware: Services — the App Store, subscriptions, iCloud — which carry far higher margins than physical devices and don't depend on someone buying a new phone every year.\n\nThat second engine shows up clearly in the numbers today. Revenue over the past year is $466.82 billion, and — notably for a company this size — growth just accelerated to 16.4% in the latest quarter, a rate more typical of a much younger company. Net income reached $128.93 billion, up 30%, on a gross margin near 50%. Apple still pays only a token dividend (0.3%), a sign it would rather keep reinvesting and buying back stock than pay out cash.\n\nAt a $4.91 trillion market cap, Apple remains comfortably the most valuable consumer electronics company on the planet — its closest full-line technology peer, Microsoft, trails at $3.67 trillion. The one real change recently is that Apple is no longer the single most valuable public company overall; Nvidia's AI-driven run has pushed past it. That doesn't change what Apple's business actually does, but it's a reminder that \"biggest company in the world\" is a title the market hands out based on where the next wave of growth is expected, not just where today's profits are.\n\nWhat hasn't changed is the underlying tension in Apple's story: iPhone sales are largely a mature, replacement-driven business, while Services keeps compounding on top of it. How long that second engine can keep growing faster than the phone business it was built on is the real open question behind Apple's numbers today.",
+  "reddit_pulse": {
+    "summary_note": "Illustrative example of common viewpoints in investor discussions about Apple — curated for this demo rather than a live scrape, and opinion, not fact.",
+    "thought_bubbles": [
+      { "sentiment": "skeptical", "take": "Some investors point out that iPhone unit sales are essentially flat, and argue the recent revenue acceleration owes more to pricing, product mix, and Services than to genuine growth in new users — a distinction they think gets glossed over." },
+      { "sentiment": "bullish", "take": "The more optimistic view is that Services has become such a large, high-margin profit engine on its own that Apple's earnings can keep compounding even in years when hardware doesn't have a breakout product." },
+      { "sentiment": "neutral", "take": "China consistently comes up as a swing factor — both as a huge market where local phone makers are gaining ground, and as a manufacturing base that ties Apple to geopolitical and trade-policy risk it doesn't fully control." },
+      { "sentiment": "insider", "take": "Developers and industry watchers frequently flag antitrust pressure — from the EU's Digital Markets Act to ongoing App Store fee disputes — as a genuine long-term risk to the very Services margins that have been carrying Apple's growth story." }
+    ]
+  }
+}

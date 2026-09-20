@@ -31,9 +31,18 @@
       <button type="submit" id="searchBtn">Tell the story</button>
     </form>
     <div id="statusLine" class="status-line" aria-live="polite"></div>
+
+    <div class="demo-row">
+      <span class="demo-label">No keys, no waiting — try a live-data snapshot:</span>
+      <button type="button" class="demo-chip" data-demo="tsla">Tesla</button>
+      <button type="button" class="demo-chip" data-demo="aapl">Apple</button>
+      <button type="button" class="demo-chip" data-demo="nvda">Nvidia</button>
+    </div>
   </section>
 
   <section id="results" class="results hidden">
+
+    <p id="demoBanner" class="demo-banner hidden"></p>
 
     <div class="result-header">
       <div>

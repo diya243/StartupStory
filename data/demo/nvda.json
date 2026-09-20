@@ -1,0 +1,60 @@
+{
+  "resolved": { "symbol": "NVDA", "name": "NVIDIA Corporation", "region": "United States" },
+  "capturedOn": "2026-09-18",
+  "overview": {
+    "Symbol": "NVDA",
+    "Name": "NVIDIA Corporation",
+    "Exchange": "NASDAQ",
+    "Sector": "Technology",
+    "Industry": "Semiconductors",
+    "MarketCapitalization": "5370000000000",
+    "RevenueTTM": "302970000000",
+    "ProfitMargin": "0.6366",
+    "QuarterlyRevenueGrowthYOY": "1.0585",
+    "DividendYield": "0.0045"
+  },
+  "income": {
+    "quarterlyReports": [
+      { "fiscalDateEnding": "2026-07-26", "totalRevenue": "96221000000", "netIncome": "59688000000", "grossProfit": "72142000000" },
+      { "fiscalDateEnding": "2026-04-26", "totalRevenue": "81615000000", "netIncome": "58321000000", "grossProfit": "61157000000" },
+      { "fiscalDateEnding": "2026-01-25", "totalRevenue": "68127000000", "netIncome": "42960000000", "grossProfit": "51093000000" },
+      { "fiscalDateEnding": "2025-10-26", "totalRevenue": "57006000000", "netIncome": "31910000000", "grossProfit": "41849000000" },
+      { "fiscalDateEnding": "2025-07-27", "totalRevenue": "46743000000", "netIncome": "26422000000", "grossProfit": "33853000000" },
+      { "fiscalDateEnding": "2025-04-27", "totalRevenue": "44062000000", "netIncome": "18775000000", "grossProfit": "26668000000" },
+      { "fiscalDateEnding": "2025-01-26", "totalRevenue": "39331000000", "netIncome": "22091000000", "grossProfit": "28723000000" },
+      { "fiscalDateEnding": "2024-10-27", "totalRevenue": "35082000000", "netIncome": "19309000000", "grossProfit": "26156000000" }
+    ]
+  },
+  "monthlyPrices": [
+    { "date": "Sep 2025", "close": 186.58 },
+    { "date": "Oct 2025", "close": 202.49 },
+    { "date": "Nov 2025", "close": 177.00 },
+    { "date": "Dec 2025", "close": 186.50 },
+    { "date": "Jan 2026", "close": 191.13 },
+    { "date": "Feb 2026", "close": 177.19 },
+    { "date": "Mar 2026", "close": 174.40 },
+    { "date": "Apr 2026", "close": 199.57 },
+    { "date": "May 2026", "close": 211.14 },
+    { "date": "Jun 2026", "close": 200.09 },
+    { "date": "Jul 2026", "close": 200.75 },
+    { "date": "Aug 2026", "close": 220.78 },
+    { "date": "Sep 2026", "close": 222.27 }
+  ],
+  "leader": { "name": "Advanced Micro Devices, Inc.", "ticker": "AMD", "is_queried_company_leader": true },
+  "leaderOverview": {
+    "MarketCapitalization": "913890000000",
+    "RevenueTTM": "41310000000",
+    "ProfitMargin": "0.1557",
+    "QuarterlyRevenueGrowthYOY": "0.395"
+  },
+  "narrative": "Nvidia was founded in 1993 by Jensen Huang and two co-founders, and for its first two decades it was, to most people, simply \"the graphics card company\" — the maker of GPUs that let video games look better.\n\nThe pivot that changed everything wasn't a single dramatic event but a long, contrarian bet: Nvidia's engineers believed the same chip architecture built for rendering game graphics — thousands of small calculations happening in parallel — was also the best hardware for training the neural networks behind artificial intelligence. Through the 2000s and early 2010s, that was a niche, somewhat unproven idea outside a small research community.\n\nThe deep-learning breakthroughs of the 2010s started to validate it, but the real inflection point came with the explosion of generative AI in the early 2020s. Almost overnight, every major tech company needed as many of Nvidia's AI chips as it could get, and Nvidia went from \"the gaming GPU company\" to the essential infrastructure layer underneath the entire AI industry.\n\nThe numbers since then have been extraordinary even by tech standards. Revenue over the past year hit $302.97 billion, up 83% year-over-year, and growth in the most recent single quarter was 106% — a pace almost unheard of at this scale. Net income reached $192.88 billion, up 123%, and gross margin sits near 75%, remarkably high for a hardware company and a sign of just how little real pricing pressure Nvidia currently faces at the top end of the AI chip market.\n\nThat performance has made Nvidia the single most valuable public company in the world, at roughly $5.37 trillion — well clear of its closest direct chip-industry rival, AMD, whose $913.89 billion market cap and $41.31 billion revenue are a fraction of Nvidia's, even though AMD itself is growing fast (around 40% revenue growth) chasing the same AI buildout.\n\nThe stock's own path hasn't been a straight line up, though — it's had sharp pullbacks along the way, and those swings capture the real debate underneath the growth: whether the current pace of AI infrastructure spending by Nvidia's biggest customers is a durable new normal, or a buildout that eventually slows once today's data centers are built.",
+  "reddit_pulse": {
+    "summary_note": "Illustrative example of common viewpoints in investor discussions about Nvidia — curated for this demo rather than a live scrape, and opinion, not fact.",
+    "thought_bubbles": [
+      { "sentiment": "skeptical", "take": "A frequent concern is around so-called circular deals — cases where Nvidia's biggest customers are also investors in AI startups that then turn around and spend that money on Nvidia chips — with some questioning how much of reported demand is fully independent." },
+      { "sentiment": "bullish", "take": "The counterargument often raised is that a 75% gross margin with an already-booked backlog isn't what a bubble looks like — it's read as evidence of real, durable pricing power rather than hype alone." },
+      { "sentiment": "neutral", "take": "A commonly cited long-term risk is that Nvidia's largest customers — Microsoft, Google, Amazon, Meta — are all building their own custom AI chips, a multi-year effort aimed at reducing how dependent they are on any single supplier." },
+      { "sentiment": "insider", "take": "Enterprise buyers and researchers often describe long wait times and steep prices for the newest chips as an ongoing real-world bottleneck, even while acknowledging that demand shows no sign of slowing." }
+    ]
+  }
+}

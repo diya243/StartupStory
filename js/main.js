@@ -154,6 +154,7 @@
 
     searchBtn.disabled = true;
     document.getElementById("results").classList.add("hidden");
+    Render.demoBanner(null);
     Render.setStatus(`Looking up "${query}"…`);
 
     try {
@@ -199,4 +200,63 @@
       searchBtn.disabled = false;
     }
   });
+
+  // Demo mode: fully static, pre-fetched real data for a few companies.
+  // Zero network calls beyond loading the JSON file itself — no keys, no
+  // worker, no rate limits, guaranteed to work for anyone who opens the link.
+  document.querySelectorAll(".demo-chip").forEach((btn) => {
+    btn.addEventListener("click", () => runDemo(btn.dataset.demo));
+  });
+
+  async function runDemo(key) {
+    document.getElementById("results").classList.add("hidden");
+    Render.setStatus(`Loading demo data for ${key.toUpperCase()}…`);
+
+    try {
+      const res = await fetch(`data/demo/${key}.json`);
+      if (!res.ok) throw new Error("Couldn't load demo data.");
+      const data = await res.json();
+
+      const { metrics: rawMetrics, gaps } = FinanceApi.buildMetrics(data.resolved.symbol, data.overview, data.income, data.monthlyPrices);
+      // This demo dataset was hand-researched from public sources, not fetched from
+      // Alpha Vantage — correct the citation so it doesn't misattribute the source.
+      const metrics = rawMetrics.map((m) => ({
+        ...m,
+        source: "Demo dataset (researched from public filings/market data)",
+        source_url: `https://stockanalysis.com/stocks/${data.resolved.symbol}/`,
+      }));
+      const latestQ = (data.income.quarterlyReports || [])[0];
+      const asOfPeriod = latestQ ? latestQ.fiscalDateEnding : "unknown";
+
+      Render.demoBanner(`Demo · real data captured ${data.capturedOn}, not live. Search any other company above for the real-time version.`);
+      Render.companyHeader({
+        name: data.overview.Name,
+        ticker: `${data.resolved.symbol} · ${data.overview.Exchange}`,
+        period: asOfPeriod,
+        assumptionNote: null,
+      });
+
+      Render.metrics(metrics);
+      Render.dataGaps(gaps);
+      if (data.income.quarterlyReports?.length) Render.revenueTrend(data.income.quarterlyReports);
+      Render.priceTrend(data.monthlyPrices);
+      Render.showResults();
+      Render.setStatus("");
+
+      Render.narrative(data.narrative);
+      Render.redditPulse(data.reddit_pulse);
+
+      const rows = buildComparisonRows(data.overview.Name, data.leader.name, data.overview, data.leaderOverview);
+      Render.comparison({
+        isLeader: !!data.leader.is_queried_company_leader,
+        leaderName: data.leader.name,
+        companyName: data.overview.Name,
+        rows,
+      });
+
+      window.scrollTo({ top: document.getElementById("results").offsetTop - 20, behavior: "smooth" });
+    } catch (err) {
+      Render.setStatus(err.message, true);
+    }
+  }
 })();

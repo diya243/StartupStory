@@ -1,0 +1,60 @@
+{
+  "resolved": { "symbol": "TSLA", "name": "Tesla, Inc.", "region": "United States" },
+  "capturedOn": "2026-09-18",
+  "overview": {
+    "Symbol": "TSLA",
+    "Name": "Tesla, Inc.",
+    "Exchange": "NASDAQ",
+    "Sector": "Consumer Discretionary",
+    "Industry": "Auto Manufacturers",
+    "MarketCapitalization": "1440000000000",
+    "RevenueTTM": "103620000000",
+    "ProfitMargin": "0.0368",
+    "QuarterlyRevenueGrowthYOY": "0.2552",
+    "DividendYield": "0"
+  },
+  "income": {
+    "quarterlyReports": [
+      { "fiscalDateEnding": "2026-06-30", "totalRevenue": "28236000000", "netIncome": "1116000000", "grossProfit": "4751000000" },
+      { "fiscalDateEnding": "2026-03-31", "totalRevenue": "22387000000", "netIncome": "477000000", "grossProfit": "4720000000" },
+      { "fiscalDateEnding": "2025-12-31", "totalRevenue": "24901000000", "netIncome": "840000000", "grossProfit": "5009000000" },
+      { "fiscalDateEnding": "2025-09-30", "totalRevenue": "28095000000", "netIncome": "1373000000", "grossProfit": "5054000000" },
+      { "fiscalDateEnding": "2025-06-30", "totalRevenue": "22496000000", "netIncome": "1172000000", "grossProfit": "3878000000" },
+      { "fiscalDateEnding": "2025-03-31", "totalRevenue": "19335000000", "netIncome": "409000000", "grossProfit": "3153000000" },
+      { "fiscalDateEnding": "2024-12-31", "totalRevenue": "25707000000", "netIncome": "2125000000", "grossProfit": "4179000000" },
+      { "fiscalDateEnding": "2024-09-30", "totalRevenue": "25182000000", "netIncome": "2173000000", "grossProfit": "4997000000" }
+    ]
+  },
+  "monthlyPrices": [
+    { "date": "Sep 2025", "close": 444.72 },
+    { "date": "Oct 2025", "close": 456.56 },
+    { "date": "Nov 2025", "close": 430.17 },
+    { "date": "Dec 2025", "close": 449.72 },
+    { "date": "Jan 2026", "close": 430.41 },
+    { "date": "Feb 2026", "close": 402.51 },
+    { "date": "Mar 2026", "close": 371.75 },
+    { "date": "Apr 2026", "close": 381.63 },
+    { "date": "May 2026", "close": 435.79 },
+    { "date": "Jun 2026", "close": 420.60 },
+    { "date": "Jul 2026", "close": 311.21 },
+    { "date": "Aug 2026", "close": 367.95 },
+    { "date": "Sep 2026", "close": 364.27 }
+  ],
+  "leader": { "name": "Toyota Motor Corporation", "ticker": "TM", "is_queried_company_leader": false },
+  "leaderOverview": {
+    "MarketCapitalization": "227660000000",
+    "RevenueTTM": "319650000000",
+    "ProfitMargin": "0.0863",
+    "QuarterlyRevenueGrowthYOY": "0.072"
+  },
+  "narrative": "Tesla was founded in 2003 on a bet that electric cars didn't have to be slow, ugly compromises — they could be genuinely desirable, and that would be what finally pulled the auto industry off gasoline. Elon Musk joined a year later as an early investor and chairman before taking over as CEO, and the company spent its first decade proving that bet one very expensive car at a time.\n\nThe road there was brutal. Tesla nearly ran out of cash multiple times in its early years, and the 2017–2018 push to mass-produce the Model 3 became infamous as \"production hell\" — Musk slept at the factory as the company scrambled to avoid bankruptcy. For years, skeptics openly bet against Tesla ever building cars at real volume, profitably.\n\nThe turn came around 2020: Tesla posted its first full year of profitability, joined the S&P 500, and split its stock twice as investors began pricing it less like a car company and more like a technology platform with optionality in self-driving and energy storage. That reframing is a big part of why Tesla still trades at a premium most automakers never touch.\n\nToday the numbers tell a more complicated story than the stock price alone suggests. Revenue over the past year is $103.62 billion, and growth just reaccelerated sharply — up 25.5% in the most recent quarter — after a bumpy stretch where full-year 2025 revenue actually dipped slightly. But profitability has gone the other way: net income in the latest quarter fell 35% year-over-year, and gross margin has compressed to around 17%, down from the 25%+ margins Tesla used to post, largely because it has repeatedly cut prices to stay competitive as Chinese EV makers flood the global market with cheaper alternatives.\n\nThe market's answer to that tension is a $1.44 trillion valuation — roughly six times bigger than Toyota's, the world's largest automaker by revenue, even though Toyota sells about three times more and converts far more of each sales dollar into profit. That gap only makes sense if you believe Tesla's future is about more than selling cars: robotaxis, humanoid robots, and energy storage are the bets investors are really pricing in.\n\nWhether that bet pays off is genuinely unresolved, and the stock's own swings reflect it — it dropped over a quarter in a single month this year and then clawed much of it back the next. Tesla today is less a story of steady compounding and more one of a company mid-transition, trying to prove its next act is as real as its first.",
+  "reddit_pulse": {
+    "summary_note": "Illustrative example of common viewpoints in investor discussions about Tesla — curated for this demo rather than a live scrape, and opinion, not fact.",
+    "thought_bubbles": [
+      { "sentiment": "skeptical", "take": "A common critique is that Tesla's valuation still assumes a future that hasn't arrived — with net income shrinking and margins compressed, the stock is seen by some as priced for robotaxis and robots, not the car business actually in front of investors today." },
+      { "sentiment": "bullish", "take": "The bull case many people describe isn't about vehicle sales at all — it's the belief that autonomous driving and the Optimus humanoid robot program could eventually dwarf the auto business, making today's car-industry comparisons beside the point." },
+      { "sentiment": "insider", "take": "Early riders and testers of the robotaxi rollout often describe a mixed experience — genuinely impressive in places, but slowed by cautious routing and regulatory scrutiny, suggesting the commercial timeline may stretch longer than the most optimistic projections." },
+      { "sentiment": "neutral", "take": "A recurring, less dramatic theme is simply competitive pressure: Chinese EV makers scaling fast and undercutting on price are treated as a real, ongoing constraint on Tesla's margins and global market share, independent of how the AI bets play out." }
+    ]
+  }
+}

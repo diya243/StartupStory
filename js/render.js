@@ -12,6 +12,16 @@ const Render = (() => {
     document.getElementById("results").classList.remove("hidden");
   }
 
+  function demoBanner(text) {
+    const el = document.getElementById("demoBanner");
+    if (!text) {
+      el.classList.add("hidden");
+      return;
+    }
+    el.textContent = text;
+    el.classList.remove("hidden");
+  }
+
   function companyHeader({ name, ticker, period, assumptionNote }) {
     document.getElementById("companyName").textContent = name;
     document.getElementById("companyTicker").textContent = ticker;
@@ -193,6 +203,7 @@ const Render = (() => {
   return {
     setStatus,
     showResults,
+    demoBanner,
     companyHeader,
     metrics,
     revenueTrend,

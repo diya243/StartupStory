@@ -4,6 +4,10 @@ Type the name of any public company and get a plain-English breakdown of how it'
 
 **Live demo:** _add your GitHub Pages URL here after deploying_
 
+## Try it with zero setup
+
+Click **Tesla**, **Apple**, or **Nvidia** under the search box for an instant demo — real financials, narrative, market comparison, and sentiment, all pre-loaded from `data/demo/*.json`. No keys, no backend, no network calls beyond the page itself. This is what to hand a recruiter or link on a resume: it always works, with no dependency on your API quota or backend uptime. Live search for any other company still needs either the shared backend or a visitor's own keys (see below).
+
 ## What it does
 
 1. You type a company name (formal or informal — "tesla", "the coffee company").

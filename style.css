@@ -102,6 +102,37 @@ body {
 .status-line { min-height: 22px; margin-top: 14px; color: var(--text-dim); font-size: 14px; }
 .status-line.error { color: var(--bad); }
 
+.demo-row {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.demo-label { font-size: 13px; color: var(--text-dim); }
+.demo-chip {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.demo-chip:hover { border-color: var(--accent); background: var(--surface-2); }
+
+.demo-banner {
+  background: rgba(125,211,192,0.1);
+  border: 1px solid rgba(125,211,192,0.3);
+  color: var(--good);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
 .hidden { display: none !important; }
 
 .results { margin-top: 24px; animation: fadeIn 0.4s ease; }
