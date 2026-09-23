@@ -41,6 +41,20 @@ const Orbit = (() => {
     render(true);
   }
 
+  // Move sideways to a sibling leaf (another bubble at the same level)
+  // without backing out to the orbit first. Wraps around at the ends.
+  function goToSibling(delta) {
+    if (path.length < 2) return;
+    const parent = path[path.length - 2];
+    const siblings = (parent && parent.children) || [];
+    const currentId = path[path.length - 1].id;
+    const idx = siblings.findIndex((s) => s.id === currentId);
+    if (idx === -1 || siblings.length < 2) return;
+    const newIdx = (idx + delta + siblings.length) % siblings.length;
+    path[path.length - 1] = siblings[newIdx];
+    render(delta > 0 ? "next" : "prev");
+  }
+
   function current() {
     return path[path.length - 1];
   }
@@ -73,7 +87,7 @@ const Orbit = (() => {
     return Math.round(base * scale);
   }
 
-  function render(animateZoom) {
+  function render(transition) {
     renderCrumbs();
     stage.innerHTML = "";
     const focus = path[path.length - 1];
@@ -91,7 +105,11 @@ const Orbit = (() => {
     center.style.top = `${cy}px`;
 
     if (focus.leaf) {
-      center.appendChild(buildReadingCard(focus));
+      const parent = path.length >= 2 ? path[path.length - 2] : null;
+      const siblings = (parent && parent.children) || [];
+      const idx = siblings.findIndex((s) => s.id === focus.id);
+      const navInfo = siblings.length > 1 && idx !== -1 ? { idx, total: siblings.length } : null;
+      center.appendChild(buildReadingCard(focus, navInfo));
       center.classList.add("orbit-center-reading");
     } else if (focus.loading || focus.error) {
       center.innerHTML = `
@@ -161,8 +179,12 @@ const Orbit = (() => {
       });
     }
 
-    if (animateZoom) {
+    if (transition === true) {
       center.classList.add("zoom-in");
+    } else if (transition === "next") {
+      center.classList.add("slide-next");
+    } else if (transition === "prev") {
+      center.classList.add("slide-prev");
     }
 
     if (typeof afterRender === "function") afterRender(focus);
@@ -176,7 +198,7 @@ const Orbit = (() => {
       </form>`;
   }
 
-  function buildReadingCard(node) {
+  function buildReadingCard(node, navInfo) {
     const wrap = document.createElement("div");
     wrap.className = "reading-card";
     let html = `<div class="reading-title">${escapeHtml(node.title)}</div>`;
@@ -202,6 +224,19 @@ const Orbit = (() => {
         if (canvas && window.Chart) drawLeafChart(canvas, node.leaf.chart);
       });
     }
+
+    if (navInfo) {
+      const nav = document.createElement("div");
+      nav.className = "reading-nav";
+      nav.innerHTML = `
+        <button type="button" class="reading-nav-btn" data-dir="prev" aria-label="Previous">&larr;</button>
+        <span class="reading-nav-count">${navInfo.idx + 1} / ${navInfo.total}</span>
+        <button type="button" class="reading-nav-btn" data-dir="next" aria-label="Next">&rarr;</button>`;
+      nav.querySelector('[data-dir="prev"]').addEventListener("click", () => goToSibling(-1));
+      nav.querySelector('[data-dir="next"]').addEventListener("click", () => goToSibling(1));
+      wrap.appendChild(nav);
+    }
+
     return wrap;
   }
 
@@ -254,5 +289,15 @@ const Orbit = (() => {
     if (path.length) render(false);
   });
 
-  return { init, push, replaceFocus, goTo, current, render: () => render(false) };
+  // Arrow keys move between sibling leaves; only active once you're inside a
+  // reading card, so they never fight with typing in the root search box.
+  document.addEventListener("keydown", (e) => {
+    const focus = path[path.length - 1];
+    if (!focus || !focus.leaf) return;
+    if (e.key === "ArrowRight") goToSibling(1);
+    else if (e.key === "ArrowLeft") goToSibling(-1);
+    else if (e.key === "Escape" && path.length > 1) goTo(path.length - 2);
+  });
+
+  return { init, push, replaceFocus, goTo, goToSibling, current, render: () => render(false) };
 })();
