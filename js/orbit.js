@@ -80,10 +80,10 @@ const Orbit = (() => {
   }
 
   function bubbleSizeFor(kind) {
-    const scale = window.innerWidth < 480 ? 0.7 : 1;
-    let base = 86;
-    if (kind === "company") base = 108;
-    else if (kind === "category") base = 96;
+    const scale = window.innerWidth < 480 ? 0.72 : 1;
+    let base = 100; // leaf
+    if (kind === "company") base = 136;
+    else if (kind === "category") base = 118;
     return Math.round(base * scale);
   }
 
@@ -155,13 +155,26 @@ const Orbit = (() => {
     if (kids.length && !focus.leaf) {
       // Measure the actual rendered center bubble (its CSS size varies by
       // kind and viewport via media queries) so the orbit always clears it,
-      // then clamp to the viewport so bubbles never run off-screen.
+      // then use as much of the remaining screen as is safely available --
+      // a radius that just barely clears the center leaves a mostly-empty
+      // canvas with a few small dots in it, which is what made this feel
+      // arbitrary rather than deliberately laid out.
       const centerEl = center.querySelector(".center-bubble") || center;
       const centerRadius = centerEl.getBoundingClientRect().width / 2;
       const maxBubble = Math.max(...kids.map((c) => bubbleSizeFor(c.kind)));
-      const desired = centerRadius + maxBubble / 2 + 22;
       const safeMargin = maxBubble / 2 + 10;
-      const radius = Math.min(desired, cx - safeMargin, cy - safeMargin);
+      const minRadius = centerRadius + maxBubble / 2 + 18;
+      const maxRadius = Math.min(cx, cy) - safeMargin;
+      const radius = Math.min(Math.max(minRadius, maxRadius * 0.84), maxRadius);
+
+      const ring = document.createElement("div");
+      ring.className = "orbit-ring";
+      ring.style.left = `${cx}px`;
+      ring.style.top = `${cy}px`;
+      ring.style.width = `${radius * 2}px`;
+      ring.style.height = `${radius * 2}px`;
+      stage.appendChild(ring);
+
       kids.forEach((child, i) => {
         const { x, y } = polarPosition(i, kids.length, radius, cx, cy);
         const size = bubbleSizeFor(child.kind);
@@ -173,8 +186,17 @@ const Orbit = (() => {
         el.style.width = `${size}px`;
         el.style.height = `${size}px`;
         el.style.animationDelay = `${i * 0.05}s`;
+        if (child.title.length > 22) el.style.fontSize = "11px";
+        else if (child.title.length > 14) el.style.fontSize = "12px";
         el.innerHTML = `<span>${escapeHtml(child.title)}</span>`;
-        el.addEventListener("click", () => handleSelect(child));
+        el.addEventListener("click", () => {
+          // Immediate visual confirmation the click registered, even on
+          // touch devices with no :hover -- the transition to the next
+          // view can take a beat (async fetch), so this is what tells the
+          // visitor their tap actually did something.
+          el.classList.add("is-pressed");
+          handleSelect(child);
+        });
         stage.appendChild(el);
       });
     }
