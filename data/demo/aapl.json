@@ -53,6 +53,14 @@
     { "key": "inflection", "label": "Inflection", "period": "2007–2010s", "headline": "The iPhone, then a second engine: high-margin Services", "detail": "The iPhone, launched in 2007, turned Apple into the most profitable consumer electronics company in history. Over the following decade it layered a second growth engine on top — the App Store, subscriptions, and iCloud — with margins far higher than hardware and no dependence on someone buying a new phone every year." },
     { "key": "today", "label": "Today", "period": "2026", "headline": "Services carrying growth as iPhone matures, still the consumer-electronics leader", "detail": "Revenue over the past year is $466.82 billion, and growth just accelerated to 16.4% in the latest quarter — unusually fast for a company this size. Net income reached $128.93 billion, up 30%, on close to a 50% gross margin. At $4.91 trillion, Apple remains the most valuable consumer electronics company by a wide margin over Microsoft, even though Nvidia's AI run recently made it the single most valuable public company overall instead of Apple." }
   ],
+  "growth_playbook": {
+    "stage": "Mature Compounder",
+    "stage_explainer": "A mature compounder no longer needs to win dramatically more new customers to grow — it grows by selling more to the customers it already has and returning much of the rest of its cash to shareholders.",
+    "lever_name": "More Spend Per Customer (Services attach rate)",
+    "lever_detail": "Apple's growth increasingly comes from selling more Services — subscriptions, App Store, iCloud — to its existing installed base of well over a billion devices, not from winning dramatically more first-time iPhone buyers.",
+    "biggest_risk": "Antitrust and regulatory pressure (the EU's Digital Markets Act, App Store fee disputes) targets directly the high-margin Services business that's now carrying Apple's growth.",
+    "what_to_watch": "Services revenue growth specifically, separate from iPhone — if that decelerates, Apple loses its main growth lever with no obvious replacement lined up."
+  },
   "reddit_pulse": {
     "summary_note": "Illustrative example of common viewpoints in investor discussions about Apple — curated for this demo rather than a live scrape, and opinion, not fact.",
     "thought_bubbles": [

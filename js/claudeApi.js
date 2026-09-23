@@ -32,6 +32,14 @@ with a real spread (skeptical, bullish, neutral, insider/customer-experience). P
 in your own words in 1-2 sentences — never quote or closely reproduce original phrasing. This is a vibe
 check, not verified fact, and your summary_note must say so plainly.
 
+4. GROWTH PLAYBOOK: Teach the reader how to think about this company's growth strategy, not just what its
+numbers are. Classify its growth stage (e.g. "Hypergrowth", "Mature Compounder", "Turnaround", "Category
+Leader Defending Share") and explain in 1-2 sentences what that stage generally means for any company.
+Identify its single primary growth lever (more customers, more spend per customer, new markets, or new
+products) and explain concretely how this company pulls that lever. State its single biggest risk to that
+growth story, and the one specific metric or signal a reader should watch going forward to know if the
+story is still working.
+
 Respond with ONLY a single raw JSON object (no markdown code fences, no commentary before or after) in
 exactly this shape:
 {
@@ -45,6 +53,14 @@ exactly this shape:
   "reddit_pulse": {
     "summary_note": "string reminding the reader this is opinion, not fact",
     "thought_bubbles": [ { "sentiment": "bullish|skeptical|neutral|insider", "take": "string" } ]
+  },
+  "growth_playbook": {
+    "stage": "string, short label",
+    "stage_explainer": "string, 1-2 sentences, general + applied to this company",
+    "lever_name": "string, short label for the primary growth lever",
+    "lever_detail": "string, 1-2 sentences on how this company pulls that lever",
+    "biggest_risk": "string, 1-2 sentences",
+    "what_to_watch": "string, 1-2 sentences"
   }
 }`;
   }

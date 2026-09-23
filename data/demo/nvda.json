@@ -53,6 +53,14 @@
     { "key": "inflection", "label": "Inflection", "period": "2022–2023", "headline": "Generative AI exploded, and Nvidia became essential infrastructure overnight", "detail": "The generative AI boom of the early 2020s made Nvidia's chips suddenly indispensable to every major tech company. It went from \"the gaming GPU company\" to the essential infrastructure layer underneath the entire AI industry almost overnight." },
     { "key": "today", "label": "Today", "period": "2026", "headline": "The world's most valuable company, growing 83% a year", "detail": "Revenue over the past year hit $302.97 billion, up 83% year-over-year, with the latest single quarter growing 106%. Net income reached $192.88 billion, up 123%, on a 75% gross margin — remarkably high for hardware. That's made Nvidia the single most valuable public company at $5.37 trillion, well past its closest chip rival AMD, though the stock's own sharp swings reflect real debate about how long this pace of AI spending continues." }
   ],
+  "growth_playbook": {
+    "stage": "Hypergrowth",
+    "stage_explainer": "A hypergrowth company reinvests essentially everything because the market opportunity is expanding faster than the company can capture it — the priority is capturing share, not optimizing margins (though Nvidia is unusual in having sky-high margins anyway).",
+    "lever_name": "New Markets (the entire AI infrastructure buildout)",
+    "lever_detail": "Nvidia isn't mainly selling more of an existing product to existing customers — it's riding an entirely new category, AI data-center infrastructure, that barely existed as a market a few years ago.",
+    "biggest_risk": "Its biggest customers are simultaneously funding AI startups that buy its chips and building their own custom chips — both trends could quietly reduce how dependent the industry stays on Nvidia specifically.",
+    "what_to_watch": "Gross margin trend, not just revenue growth — margin compression would be the first sign that real competition (AMD, custom silicon) is finally showing up in Nvidia's pricing power."
+  },
   "reddit_pulse": {
     "summary_note": "Illustrative example of common viewpoints in investor discussions about Nvidia — curated for this demo rather than a live scrape, and opinion, not fact.",
     "thought_bubbles": [

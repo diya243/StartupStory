@@ -64,6 +64,14 @@
     { "key": "inflection", "label": "Inflection", "period": "FY25", "headline": "Turned profitable for the first time", "detail": "In the fiscal year ending March 2025, the company says it turned profitable — posting ₹10–12 Cr in profit before tax — helped by newer paid features like a premium subscription, ATM withdrawal fees, and a new UPI product for foreign travelers called Namaspay." },
     { "key": "today", "label": "Today", "period": "2025–2026", "headline": "Revenue jumped sharply, now raising again to let a co-founder exit", "detail": "FY25 revenue came in around ₹90–100 Cr, up sharply from ₹25 Cr the year before, according to figures reported to press. The company is now reportedly in talks to raise $15M, primarily to let co-founder Kush Taneja sell his stake to existing investors led by Elevation Capital." }
   ],
+  "growth_playbook": {
+    "stage": "Turnaround (into Hypergrowth)",
+    "stage_explainer": "A turnaround is a company that was burning cash to grow, then had to prove it could reach profitability without giving up growth — FamApp's jump from losses to profit while revenue roughly tripled to quadrupled is exactly that pattern.",
+    "lever_name": "More Spend Per Customer (premium features, transaction fees)",
+    "lever_detail": "Rather than only adding new teen users, FamApp layered on monetization: a premium subscription, ATM and KYC fees, and a new cross-border payments product (Namaspay) that let it earn more from the users it already had.",
+    "biggest_risk": "It operates in a fairly narrow niche — payments for Indian teenagers — so if it can't expand into adjacent products, its addressable market may already be close to its ceiling.",
+    "what_to_watch": "Whether the newer products (Namaspay, premium subscriptions) keep growing as a share of revenue — that's the real test of whether monetization, not just the niche itself, can keep compounding."
+  },
   "reddit_pulse": {
     "summary_note": "Illustrative example of common viewpoints in startup/fintech discussions — curated for this demo (not a live scrape), and opinion, not fact. As a niche Indian fintech, FamApp has limited English-language public discussion to draw from.",
     "thought_bubbles": [

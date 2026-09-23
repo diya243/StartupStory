@@ -53,6 +53,14 @@
     { "key": "inflection", "label": "Inflection", "period": "2020", "headline": "First profitable year, S&P 500 inclusion, re-rated as a tech bet", "detail": "Tesla posted its first full year of profitability, joined the S&P 500, and split its stock twice as investors began pricing it less like a car company and more like a technology platform with optionality in self-driving and energy storage. That reframing is a big part of why Tesla still trades at a premium most automakers never touch." },
     { "key": "today", "label": "Today", "period": "2026", "headline": "Growth reaccelerating, margins compressed, story now hinges on robotaxis", "detail": "Revenue over the past year is $103.62 billion, and growth just reaccelerated to 25.5% in the latest quarter after a bumpy 2025. But net income fell 35% and gross margin compressed to about 17%, largely from price cuts against cheaper Chinese EVs. At a $1.44 trillion valuation — six times Toyota's, despite Toyota selling three times more — the market is really betting on robotaxis, humanoid robots, and energy storage, a bet the stock's own sharp swings show is still very much unresolved." }
   ],
+  "growth_playbook": {
+    "stage": "Growth Story in Transition",
+    "stage_explainer": "Companies in transition are pivoting their growth story from one core business to a new bet — investors have to decide whether to value the old business, the new one, or both, which is exactly why Tesla's stock swings so hard.",
+    "lever_name": "New Products & New Markets (robotaxi, humanoid robots, energy storage)",
+    "lever_detail": "Rather than squeezing more growth from car sales — where it's cutting prices just to hold volume — Tesla is betting its next growth chapter comes from autonomous ride-hailing, the Optimus robot, and grid-scale batteries.",
+    "biggest_risk": "The new bets could take years longer to generate real revenue than the market is currently pricing in, while the core car business keeps losing margin to cheaper competitors in the meantime.",
+    "what_to_watch": "Automotive gross margin specifically — if it keeps compressing while the new bets aren't yet generating meaningful revenue, that's the growth story cracking in real time."
+  },
   "reddit_pulse": {
     "summary_note": "Illustrative example of common viewpoints in investor discussions about Tesla — curated for this demo rather than a live scrape, and opinion, not fact.",
     "thought_bubbles": [

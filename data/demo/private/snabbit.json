@@ -55,6 +55,14 @@
     { "key": "inflection", "label": "Inflection", "period": "Early 2026", "headline": "Investors raced to fund the model, valuation nearly tripled in months", "detail": "By March 2026 reports said Snabbit was in talks for a fresh round near a $450M valuation; weeks later, in April 2026, it closed $56M at a $390M valuation, backed by new and existing investors betting India's home-services market — estimated around $60 billion — is finally ready to go from informal to on-demand." },
     { "key": "today", "label": "Today", "period": "2026", "headline": "$112M raised to date, revenue still undisclosed", "detail": "Snabbit has now raised $112M in total funding, but hasn't publicly disclosed revenue — common for a fast-scaling consumer startup still in a land-grab phase. Its bet is that being first to reliably scale trust and quality in India's home-services market is worth more right now than proving profitability." }
   ],
+  "growth_playbook": {
+    "stage": "Hypergrowth (pre-revenue-disclosure)",
+    "stage_explainer": "Very early hypergrowth companies often prioritize proving the model works and locking in investor capital before they even disclose revenue — the valuation is a bet on the market's size, not on current financial performance.",
+    "lever_name": "New Markets (turning informal home services into an on-demand category)",
+    "lever_detail": "Snabbit's growth lever is category creation: converting India's large but informal home-services market — cooking, cleaning — into a trusted, on-demand app-based service, the way ride-hailing apps formalized taxis.",
+    "biggest_risk": "On-demand home services is notoriously hard to scale profitably — thin margins, worker turnover, and trust/safety concerns have challenged similar startups elsewhere.",
+    "what_to_watch": "Whether Snabbit ever discloses revenue or unit economics — until it does, its valuation is pricing pure market-size potential, not proven execution."
+  },
   "reddit_pulse": {
     "summary_note": "Illustrative example of common viewpoints in startup/venture discussions — curated for this demo (not a live scrape), and opinion, not fact. As a very young private startup, Snabbit has limited public discussion to draw from.",
     "thought_bubbles": [

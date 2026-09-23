@@ -1,27 +1,28 @@
 # Startup Story
 
-Type the name of any public company and get a plain-English breakdown of how it's actually doing — real revenue, growth, margins, and stock performance, translated out of finance jargon, plus a short narrative of its arc and a quick read on what people online are saying.
+A branded, zoomable mind-map for learning growth strategy from companies you already know. Search any public company (or click a demo) and the page zooms into a hub of real financials, its growth narrative, a market-leader comparison, live sentiment, and a "Growth Playbook" that teaches how to actually think about its strategy — each category orbiting the last, drilling deeper on every click, with a persistent breadcrumb trail so you never lose your place.
 
 **Live demo:** _add your GitHub Pages URL here after deploying_
 
 ## Try it with zero setup
 
-Click **Tesla**, **Apple**, or **Nvidia** under the search box for an instant demo — real financials, narrative, market comparison, and sentiment, all pre-loaded from `data/demo/*.json`. No keys, no backend, no network calls beyond the page itself. This is what to hand a recruiter or link on a resume: it always works, with no dependency on your API quota or backend uptime. Live search for any other company still needs either the shared backend or a visitor's own keys (see below).
+Click **Tesla**, **Apple**, **Nvidia**, **FamPay**, or **Snabbit** in the opening orbit for an instant demo — real financials, story, comparison, growth playbook, and sentiment, all pre-loaded from `data/demo/*.json`. No keys, no backend, no network calls beyond the page itself. This is what to hand a recruiter or link on a resume: it always works, with no dependency on your API quota or backend uptime. Live search for any other company still needs either the shared backend or a visitor's own keys (see below).
 
 ## What it does
 
-1. You type a company name (formal or informal — "tesla", "the coffee company").
-2. It resolves that to a real ticker and pulls live financials: revenue, YoY growth, net income, gross margin, market cap, and 12-month stock price trend.
-3. Every metric is paired with a one-line plain-English explanation of what it actually means for the business.
-4. It writes a short narrative of the company's arc (origin → struggle/pivot → inflection point → today), grounded in the real numbers above.
-5. It identifies the category's market leader and builds a side-by-side comparison.
-6. It does a live web-search-backed "vibe check" of online sentiment (paraphrased, never quoted) — clearly labeled as opinion, not fact.
+The whole experience is one continuous zoom, not a scrolling page:
+
+1. **Startup Story** (the brand hub) orbits a handful of companies plus a search box. Type a company name (formal or informal — "tesla", "the coffee company") or click a demo bubble.
+2. That zooms into the **company hub** — real financials resolved and fetched live: revenue, YoY growth, net income, gross margin, market cap, and 12-month stock price trend.
+3. Orbiting the company are five categories, each its own zoom: **The Numbers**, **vs. The Competition** (benchmarked against the category's market leader), **The Story** (origin → struggle → inflection → today), **Growth Playbook** (the company's growth stage, its primary growth lever, biggest risk, and what to watch), and **What Reddit Says** (a live web-search-backed sentiment vibe-check, paraphrased, never quoted, clearly labeled as opinion).
+4. Clicking any of those zooms once more into individual bubbles — one metric, one story stage, one comparison point, one takeaway — and finally into a full reading card with the number/detail plus a **Growth Lens**: a short, general lesson on *why that kind of number or moment matters for growth strategy*, not just what it says about this one company.
+5. A persistent breadcrumb trail (top-left) always shows exactly where you are and lets you jump back to any earlier level in one click — so drilling four levels deep never means losing your way.
 
 No investment advice is ever given — the tool describes trends, it doesn't tell you to buy, sell, or hold anything.
 
 ## Architecture
 
-The **frontend** is a fully static site — plain HTML/CSS/JS, no build step — deployed to GitHub Pages.
+The **frontend** is a fully static site — plain HTML/CSS/JS, no build step — deployed to GitHub Pages. There's no traditional page layout: a single full-viewport `Orbit` engine (`js/orbit.js`) renders a recursive, zoomable radial tree, and `js/treeBuilder.js` shapes the app's existing data (metrics, story, comparison, sentiment, growth playbook) into that generic node format, injecting the reusable "Growth Lens" teaching copy along the way.
 
 There are two ways it can get live data, and it picks automatically:
 
@@ -34,15 +35,16 @@ Either way:
 - **The narrative, market-leader identification, and Reddit sentiment** come from a single Anthropic (Claude) call using Claude's built-in `web_search` tool, so the sentiment/leader lookup is genuinely live-searched rather than memorized.
 
 ```
-index.html              page structure
-style.css               design system (dark theme, cards, charts)
+index.html              minimal shell: a full-viewport stage + breadcrumb bar
+style.css               design system (dark theme, orbit bubbles, reading cards, brand font)
 js/config.js             API key storage + worker URL config
 js/tickerAliases.js       local name -> ticker shortcuts (saves API calls)
 js/financeApi.js          Alpha Vantage data + deterministic metric computation
-js/claudeApi.js           Anthropic call (narrative + leader + sentiment)
-js/render.js               all DOM rendering
-js/main.js                  orchestration / event wiring
-worker/                       optional shared backend (see worker/README.md)
+js/claudeApi.js           Anthropic call (story stages + leader + sentiment + growth playbook)
+js/treeBuilder.js          shapes app data into the generic orbit node tree + Growth Lens copy
+js/orbit.js                 the zoomable radial mind-map engine (rendering + animation + breadcrumbs)
+js/main.js                    orchestration: root brand node, lazy company loading, live search
+worker/                          optional shared backend (see worker/README.md)
 ```
 
 ## Running it locally
