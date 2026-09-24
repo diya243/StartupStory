@@ -66,31 +66,14 @@
     return rows;
   }
 
-  // ---------------- Root brand node ----------------
-  const DEMO_COMPANIES = [
-    { key: "tsla", title: "Tesla" },
-    { key: "aapl", title: "Apple" },
-    { key: "nvda", title: "Nvidia" },
+  // ---------------- Demo company list (landing screen) ----------------
+  const DEMO_LIST = [
+    { kind: "demo", key: "tsla", title: "Tesla" },
+    { kind: "demo", key: "aapl", title: "Apple" },
+    { kind: "demo", key: "nvda", title: "Nvidia" },
+    { kind: "private", key: "fampay", title: "FamPay" },
+    { kind: "private", key: "snabbit", title: "Snabbit" },
   ];
-  const PRIVATE_COMPANIES = [
-    { key: "fampay", title: "FamPay" },
-    { key: "snabbit", title: "Snabbit" },
-  ];
-
-  function buildRootNode() {
-    const children = [
-      ...DEMO_COMPANIES.map((c) => ({ id: `demo-${c.key}`, title: c.title, subtitle: "Live-data demo", kind: "company", children: null, leaf: null, _lazy: { type: "demo", key: c.key } })),
-      ...PRIVATE_COMPANIES.map((c) => ({ id: `private-${c.key}`, title: c.title, subtitle: "Private company", kind: "company", children: null, leaf: null, _lazy: { type: "private", key: c.key } })),
-    ];
-    return {
-      id: "root",
-      title: "Startup Story",
-      subtitle: "Learn growth from the companies you already know",
-      kind: "brand",
-      children,
-      leaf: null,
-    };
-  }
 
   // ---------------- Data loaders -> full company node ----------------
 
@@ -198,47 +181,34 @@
     });
   }
 
-  // ---------------- Orbit wiring ----------------
-
-  function wireSearchForm() {
-    const form = document.getElementById("orbitSearchForm");
-    if (!form) return;
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const input = document.getElementById("orbitSearchInput");
-      const query = input.value.trim();
-      if (query) runLiveSearch(query);
-    });
-  }
+  // ---------------- Explorer wiring ----------------
 
   async function runLiveSearch(query) {
-    const stub = { id: "live-loading", title: query, subtitle: "Looking up…", kind: "company", loading: true, children: null, leaf: null };
-    Orbit.push(stub);
+    Explorer.showCompanyLoading(query);
     try {
       const node = await loadLiveCompanyNode(query);
-      Orbit.replaceFocus(node);
+      Explorer.showCompany(node);
       setStatus("");
     } catch (err) {
-      Orbit.replaceFocus({ ...stub, loading: false, error: err.message });
+      Explorer.showCompanyError(err.message);
     }
   }
 
-  Orbit.init(buildRootNode(), {
-    afterRender: wireSearchForm,
-    onSelect: async (node, proceed) => {
-      if (!node._lazy) {
-        proceed();
-        return;
-      }
-      const stub = { id: node.id, title: node.title, subtitle: "Loading…", kind: "company", loading: true, children: null, leaf: null };
-      Orbit.push(stub);
-      try {
-        const full =
-          node._lazy.type === "demo" ? await loadDemoCompanyNode(node._lazy.key) : await loadPrivateCompanyNode(node._lazy.key);
-        Orbit.replaceFocus(full);
-      } catch (err) {
-        Orbit.replaceFocus({ ...stub, loading: false, error: err.message });
-      }
-    },
-  });
+  async function selectDemo(kind, key) {
+    if (kind === "landing") {
+      Explorer.showDemoList(DEMO_LIST);
+      return;
+    }
+    const title = (DEMO_LIST.find((d) => d.kind === kind && d.key === key) || {}).title || key;
+    Explorer.showCompanyLoading(title);
+    try {
+      const node = kind === "demo" ? await loadDemoCompanyNode(key) : await loadPrivateCompanyNode(key);
+      Explorer.showCompany(node);
+    } catch (err) {
+      Explorer.showCompanyError(err.message);
+    }
+  }
+
+  Explorer.init({ onSearch: runLiveSearch, onSelectDemo: selectDemo });
+  Explorer.showDemoList(DEMO_LIST);
 })();

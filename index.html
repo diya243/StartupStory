@@ -4,19 +4,25 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Startup Story</title>
-<meta name="description" content="Learn growth strategy from the companies you already know — search any public company and zoom into its real numbers, story, and competitive position." />
+<meta name="description" content="Learn growth strategy from the companies you already know — search any public company and explore its real numbers, story, and competitive position." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="style.css?v=14" />
+<link rel="stylesheet" href="style.css?v=16" />
 </head>
 <body>
 
-<button id="settingsBtn" class="icon-btn" title="API keys">&#9881;</button>
+<div id="drawerScrim" class="drawer-scrim hidden"></div>
 
-<nav id="crumbs" class="crumbs"></nav>
+<aside id="sidebar" class="sidebar">
+  <div id="sidebarBody" class="sidebar-body"></div>
+</aside>
 
-<main id="stage" class="stage"></main>
+<main id="panel" class="panel">
+  <button id="drawerToggle" class="drawer-toggle" aria-label="Menu">&#9776;</button>
+  <button id="settingsBtn" class="icon-btn" title="API keys">&#9881;</button>
+  <div id="panelBody" class="panel-body"></div>
+</main>
 
 <p id="statusToast" class="status-toast hidden"></p>
 
@@ -38,12 +44,12 @@
   </div>
 </div>
 
-<script src="js/config.js?v=14"></script>
-<script src="js/tickerAliases.js?v=14"></script>
-<script src="js/financeApi.js?v=14"></script>
-<script src="js/claudeApi.js?v=14"></script>
-<script src="js/treeBuilder.js?v=14"></script>
-<script src="js/orbit.js?v=14"></script>
-<script src="js/main.js?v=14"></script>
+<script src="js/config.js?v=16"></script>
+<script src="js/tickerAliases.js?v=16"></script>
+<script src="js/financeApi.js?v=16"></script>
+<script src="js/claudeApi.js?v=16"></script>
+<script src="js/treeBuilder.js?v=16"></script>
+<script src="js/explorer.js?v=16"></script>
+<script src="js/main.js?v=16"></script>
 </body>
 </html>
